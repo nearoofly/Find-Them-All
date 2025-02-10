@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Eyes FTA - Recherche par numéro</title>
+    <link rel="stylesheet" href="styles.css">
+
+<style>/* Réinitialisation de certains styles de base pour harmoniser l'affichage */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Global styles */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    font-family: Arial, sans-serif;
+    background-color: #111; /* Fond noir */
+    color: #f4f4f4; /* Texte de couleur claire pour le contraste */
+}
+
+/* Style pour l'en-tête */
+header {
+    background-color: #000; /* Fond noir */
+    color: #ff0000; /* Rouge vif pour les titres */
+    padding: 15px;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.5em;
+}
+
+header p {
+    margin: 5px 0;
+    font-size: 1.2em;
+    color: #ff0000; /* Rouge pour le sous-texte */
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 15px;
+}
+
+nav ul li a {
+    color: #ff0000; /* Liens en rouge */
+    text-decoration: none;
+}
+
+nav ul li a:hover {
+    text-decoration: underline;
+}
+
+/* Main content wrapper */
+main {
+    flex: 1;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+/* Style pour les titres */
+h2 {
+    color: #ff0000; /* Rouge pour les titres de sections */
+}
+
+/* Style pour le formulaire de recherche */
+form {
+    margin-bottom: 20px;
+    width: 100%;
+    max-width: 600px;
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #ff0000; /* Rouge pour les étiquettes */
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #555; /* Bordure grise pour un contraste modéré */
+    border-radius: 4px;
+    background-color: #222; /* Fond sombre */
+    color: #fff; /* Texte blanc */
+    font-size: 1em;
+}
+
+input[type="submit"] {
+    background-color: #ff0000; /* Rouge vif */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1em;
+}
+
+input[type="submit"]:hover {
+    background-color: #cc0000; /* Rouge plus foncé au survol */
+}
+
+/* Style pour la section des résultats */
+#result {
+    background-color: #222; /* Fond sombre pour les résultats */
+    padding: 20px;
+    border: 1px solid #444; /* Bordure sombre */
+    border-radius: 4px;
+    margin-top: 20px;
+    width: 100%;
+    max-width: 600px;
+    text-align: center;
+}
+
+#result h3 {
+    color: #ff0000; /* Rouge pour les titres des résultats */
+    margin-bottom: 15px;
+}
+
+#result p {
+    font-size: 1em;
+    color: #f4f4f4; /* Texte clair pour le contraste */
+    margin: 5px 0;
+}
+
+/* Style pour la photo de profil */
+#result img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin-bottom: 15px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Style pour les réseaux sociaux */
+#result a {
+    color: #ff0000; /* Liens des réseaux sociaux en rouge */
+    text-decoration: none;
+    font-weight: bold;
+    display: inline-block;
+    margin: 5px;
+}
+
+#result a:hover {
+    text-decoration: underline;
+}
+
+/* Sticky footer */
+footer {
+    background-color: #000; /* Footer noir */
+    color: #ff0000; /* Texte rouge */
+    text-align: center;
+    padding: 10px 0;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    margin-top: auto;
+}
+
+footer p {
+    margin: 0;
+    font-size: 0.9em;
+}
+
+/* Style responsive pour petits écrans */
+@media (max-width: 600px) {
+    header h1 {
+        font-size: 2em;
+    }
+
+    input[type="text"],
+    input[type="submit"],
+    #result {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    #result img {
+        width: 100px;
+        height: 100px;
+    }
+}
+</style>
+  
+</head>
+<body>
+    <header>
+        <h1>The Eyes FTA</h1>
+        <p>Créé par Wharkly47</p>
+        <nav>
+            <ul>
+                <li><a href="#">Recherche par numéro</a></li>
+                <!-- Vous pouvez ajouter une section pour la recherche par photo ici plus tard -->
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section>
+            <h2>Rechercher des informations par numéro</h2>
+            <form id="search-form">
+                <label for="phone-number">Entrez un numéro :</label>
+                <input type="text" id="phone-number" placeholder="Ex: 0123456789" required>
+                <input type="submit" value="Rechercher">
+            </form>
+
+            <div id="result">
+                <!-- Les résultats de la recherche apparaîtront ici -->
+            </div>
+        </section>
+    </main>
+
+
+
+  <script>document.getElementById("search-form").addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    const phoneNumber = document.getElementById("phone-number").value;
+    
+    // Appel simulé à une "base de données" JSON
+    fetch('data.json')
+        .then(response => response.json())
+        .then(data => {
+            const result = data[phoneNumber];
+            const resultDiv = document.getElementById("result");
+
+            if (result) {
+                // Générer les liens des réseaux sociaux s'ils existent
+                let socialLinksHTML = '';
+                if (result.socialLinks) {
+                    for (const [network, link] of Object.entries(result.socialLinks)) {
+                        socialLinksHTML += `<p><a href="${link}" target="_blank">${capitalize(network)}</a></p>`;
+                    }
+                }
+
+                // Affichage des résultats
+                resultDiv.innerHTML = `
+                    <h3>Résultats pour le numéro : ${phoneNumber}</h3>
+                    <img src="${result.photo}" alt="Photo de ${result.name}">
+                    <p><strong>Nom :</strong> ${result.name}</p>
+                    <p><strong>Adresse :</strong> ${result.address}</p>
+                    <p><strong>Autres informations :</strong> ${result.otherInfo}</p>
+                    <h4>Réseaux sociaux :</h4>
+                    ${socialLinksHTML || "<p>Aucun lien disponible.</p>"}
+                `;
+            } else {
+                resultDiv.innerHTML = `<p>Aucune information trouvée pour ce numéro.</p>`;
+            }
+        })
+        .catch(error => {
+            console.error('Erreur lors de la récupération des données:', error);
+        });
+});
+
+// Fonction pour capitaliser le premier caractère du nom du réseau social
+function capitalize(word) {
+    return word.charAt(0).toUpperCase() + word.slice(1);
+}
+</script>
+
+    <footer>
+        <p>&copy; 2024 The Eyes FTA - Wharkly47</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
