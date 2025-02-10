@@ -236,7 +236,7 @@ footer p {
     const phoneNumber = document.getElementById("phone-number").value;
     
     // Appel simulé à une "base de données" JSON
-    fetch('data.json')
+    fetch('https://drive.google.com/file/d/1CONGw3KFth3Zz0REMHBAn1mNKRL6aimq/view?usp=drivesdk')
         .then(response => response.json())
         .then(data => {
             const result = data[phoneNumber];
