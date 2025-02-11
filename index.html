@@ -294,7 +294,36 @@ function capitalize(word) {
 
 
 
+document.getElementById("search-form").addEventListener("submit", function (event) {
+    event.preventDefault();
 
+    const phoneNumber = document.getElementById("phone-number").value;
+    
+    // L'URL de l'API NumVerify
+    const apiKey = '9dcf1297bf824b78b71e72a8cbacbbd9';  // Remplacez par votre clé API
+    const url = `https://apilayer.net/api/validate?access_key=${apiKey}&number=${phoneNumber}&country_code=FR&format=1`;
+
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            const resultDiv = document.getElementById("result");
+
+            if (data.valid) {
+                resultDiv.innerHTML = `
+                    <h3>Résultats pour le numéro : ${phoneNumber}</h3>
+                    <p><strong>Pays :</strong> ${data.country_name}</p>
+                    <p><strong>Opérateur :</strong> ${data.carrier}</p>
+                    <p><strong>Type de ligne :</strong> ${data.line_type}</p>
+                `;
+            } else {
+                resultDiv.innerHTML = `<p>Ce numéro n'est pas valide.</p>`;
+            }
+        })
+        .catch(error => {
+            console.error('Erreur lors de la récupération des données:', error);
+            resultDiv.innerHTML = `<p>Une erreur est survenue lors de la récupération des données.</p>`;
+        });
+});
 
       
 </script>
